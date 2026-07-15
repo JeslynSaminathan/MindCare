@@ -1,0 +1,27 @@
+# Render.com deploy config (Infrastructure as Code / "Blueprint").
+#
+# Usage: push this repo to GitHub, then in Render: New -> Blueprint ->
+# point at the repo. Render reads this file and provisions everything
+# below automatically. See DEPLOYMENT.md for the full walkthrough.
+
+services:
+  - type: web
+    name: mindcare
+    runtime: docker
+    plan: standard          # ~4GB RAM -- needed for Qwen2.5-1.5B on CPU.
+                             # "starter" (2GB) will likely OOM; see DEPLOYMENT.md.
+    healthCheckPath: /api/health
+    envVars:
+      - key: MINDCARE_SECRET_KEY
+        generateValue: true            # Render generates a random secret for you
+      - key: MINDCARE_GENERATOR_MODEL
+        value: Qwen/Qwen2.5-1.5B-Instruct
+      - key: MINDCARE_SKIP_GENERATOR
+        value: "0"
+      - key: FLASK_DEBUG
+        value: "0"
+    disk:
+      name: mindcare-data
+      mountPath: /data       # persists mindcare.db + the HF model cache
+                             # across deploys and restarts (see Dockerfile)
+      sizeGB: 5

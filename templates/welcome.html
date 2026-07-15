@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindCare &mdash; enhancing mental health with technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="welcome-shell">
+  <div class="welcome-card">
+    <div class="brand welcome-brand">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MindCare logo" class="brand-mark">
+      <div class="brand-text">
+        <h1>MindCare</h1>
+        <p class="tagline">enhancing mental health with technology</p>
+      </div>
+    </div>
+    <div id="returningBanner" class="returning-banner" hidden>
+      <p>Welcome back &mdash; you have a session saved on this device.</p>
+      <div class="returning-actions">
+        <button type="button" id="returningContinueBtn" class="returning-continue-btn">Continue as before</button>
+        <button type="button" id="startFreshBtn" class="returning-fresh-btn">Start a new anonymous session</button>
+      </div>
+    </div>
+    <h2 class="welcome-heading">Before you start</h2>
+    <p class="welcome-copy">
+      You don't need to sign up or give your name. MindCare doesn't collect any personal information &mdash; you'll get a random anonymous ID for this session so your conversation can't be traced back to you.
+    </p>
+    <p class="welcome-copy">
+      To help improve MindCare, anonymized message data (no name, no account, no contact details) may be reviewed by the project team. You can share your age range below if you're comfortable &mdash; it's optional and only used to understand who MindCare is helping.
+    </p>
+    <div class="optional-fields">
+      <label class="field-label" for="ageRange">Age range <span class="optional-tag">optional</span></label>
+      <select id="ageRange">
+        <option value="">Prefer not to say</option>
+        <option value="13-17">13&ndash;17</option>
+        <option value="18-24">18&ndash;24</option>
+        <option value="25-34">25&ndash;34</option>
+        <option value="35-44">35&ndash;44</option>
+        <option value="45+">45+</option>
+      </select>
+      <label class="field-label" for="gender">Gender <span class="optional-tag">optional</span></label>
+      <select id="gender">
+        <option value="">Prefer not to say</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="nonbinary">Non-binary</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="auth-actions">
+      <button type="button" id="continueBtn" class="continue-btn">Continue completely anonymously</button>
+    </div>
+    <p class="welcome-disclaimer">
+      MindCare offers supportive conversation, not clinical diagnosis or treatment. If you're in immediate danger, please contact local emergency services.
+    </p>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/welcome.js') }}"></script>
+</body>
+</html>

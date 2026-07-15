@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindCare- XAI Mental Health Chatbot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="chat-body">
+  <div class="app-shell">
+
+    <header class="topbar">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MindCare logo" class="brand-mark">
+        <span class="brand-name">MindCare</span>
+      </div>
+      <button type="button" id="xaiToggleBtn" class="xai-toggle-btn" aria-pressed="true">
+        <span>Insights panel</span>
+        <span class="toggle-indicator"></span>
+      </button>
+    </header>
+
+    <div class="disclaimer-strip">
+      <p>MindCare offers supportive conversation, not clinical treatment. If you're in immediate danger, please contact local emergency services.</p>
+    </div>
+
+    <main class="chat-layout">
+
+      <section class="chat-pane">
+        <div id="messages" class="messages" role="log" aria-live="polite"></div>
+
+        <form id="chatForm" class="composer" autocomplete="off">
+          <textarea
+            id="messageInput"
+            class="composer-input"
+            placeholder="Share what's on your mind..."
+            rows="1"
+            maxlength="4000"
+            required
+          ></textarea>
+          <button type="submit" id="sendBtn" class="composer-send-btn" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <aside id="xaiPanel" class="xai-pane">
+        <div class="xai-header">
+          <h2 class="xai-title">Why this response?</h2>
+          <p class="xai-subtitle">
+            MindCare uses LIME (Local Interpretable Model-agnostic Explanations) to reveal which words most heavily influenced how our AI evaluated your last turn.
+          </p>
+        </div>
+
+        <hr class="xai-divider">
+
+        <div class="xai-block">
+          <h3 class="xai-label">Detected Intent</h3>
+          <div id="xaiIntent" class="xai-intent-value">&mdash;</div>
+          <div class="xai-confidence-container">
+            <div id="xaiConfidenceBar" class="xai-confidence-bar">
+              <div id="xaiConfidenceFill" class="xai-confidence-fill" style="width:0%"></div>
+            </div>
+            <div id="xaiConfidenceLabel" class="xai-confidence-label">&mdash;</div>
+          </div>
+        </div>
+
+        <div class="xai-block">
+          <h3 class="xai-label">Top Contributing Tokens</h3>
+          <div id="xaiWeights" class="xai-weights">
+            <div class="xai-empty">Awaiting your first message...</div>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <script>
+    window.MINDCARE_SESSION_ID = {{ session_id | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
