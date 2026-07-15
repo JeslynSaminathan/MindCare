@@ -221,3 +221,5 @@ Example `/api/chat` response:
   fail toward caution (over-triggering) rather than silence.
 - This system has not been clinically validated and must not be deployed as
   a substitute for professional mental health services.
+#   M i n d C a r e  
+ 
